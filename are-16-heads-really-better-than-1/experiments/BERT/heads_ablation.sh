@@ -7,10 +7,13 @@ here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $here/prepare_task.sh $TASK
 
 
+echo -n "Base acc: "
 echo $base_acc
+echo -n "Part: "
 echo $part
 for layer in `seq 1 12`
 do
+    echo -n "Layer: "
     echo -n "$layer"
     for head in `seq 1 12`
     do
