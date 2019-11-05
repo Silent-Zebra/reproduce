@@ -49,7 +49,7 @@ ablation_lines_np = np.array(ablation_lines) + base_acc
 ablation_lines_flatten = ablation_lines_np.flatten()
 hist, bin_edges = np.histogram(ablation_lines_flatten, bins=len(accuracy_dist))
 plt.figure(figsize = [7, 7])
-plt.bar(bin_edges[:-1], hist, width=1, color='blue', alpha=0.05)
+plt.bar(bin_edges[:-1], hist, width=1, color='white')
 plt.xlim(min(bin_edges), max(bin_edges))
 plt.xlabel('Accuracy', fontsize=13)
 plt.ylabel('# Heads', fontsize=13)
