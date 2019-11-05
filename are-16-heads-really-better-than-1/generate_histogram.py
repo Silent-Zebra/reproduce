@@ -10,10 +10,11 @@ lines = f.readlines()
 f.close()
 
 # prepare data from file
-num_example = float(lines[37].split()[-1])
-batch_size = float(lines[38].split()[-1])
+num_example = None
 evaluation_speed = []
 for line in lines:
+	if 'Num examples' in line:
+		num_example = float(line.split()[-1])
 	if line.startswith('Evaluating'):
 		speed = re.findall(", (.*?)it/s", line)
 		if speed:
@@ -41,7 +42,7 @@ for layer in ablation_lines:
 	for head in layer:
 		key = math.floor((base_acc+ head)*10000)/10000
 		accuracy_dist[key] = accuracy_dist.get(key, 0) + 1
-print(accuracy_dist)
+#print(accuracy_dist)
 
 # visualize histogram
 ablation_lines_np = np.array(ablation_lines) + base_acc
