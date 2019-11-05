@@ -5,7 +5,7 @@ import numpy as np
 
 
 # read file
-f = open("MNLIOut.txt", 'r', errors='ignore')
+f = open("MNLIout.txt", 'r', errors='ignore')
 lines = f.readlines()
 f.close()
 
@@ -47,14 +47,13 @@ for layer in ablation_lines:
 # visualize histogram
 ablation_lines_np = np.array(ablation_lines) + base_acc
 ablation_lines_flatten = ablation_lines_np.flatten()
-hist, bin_edges = np.histogram(ablation_lines_flatten)
+hist, bin_edges = np.histogram(ablation_lines_flatten, bins=len(accuracy_dist))
 plt.figure(figsize = [7, 7])
-plt.bar(bin_edges[:-1], hist, width=0.7, color='blue', alpha=0.05)
+plt.bar(bin_edges[:-1], hist, width=1, color='blue', alpha=0.05)
 plt.xlim(min(bin_edges), max(bin_edges))
-plt.ylim(0, sum(accuracy_dist.values())/len(accuracy_dist)*10)
 plt.xlabel('Accuracy', fontsize=13)
 plt.ylabel('# Heads', fontsize=13)
-plt.hist(ablation_lines_flatten, bins=len(accuracy_dist))
+plt.hist(ablation_lines_flatten, bins=len(hist))
 plt.title('Task 3.2',fontsize=15)
 plt.axvline(x=base_acc, color='r')
 plt.show(block=True)
