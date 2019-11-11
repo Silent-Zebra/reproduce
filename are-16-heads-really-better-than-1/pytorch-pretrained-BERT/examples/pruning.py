@@ -13,6 +13,8 @@ def parse_head_pruning_descriptors(
     for descriptor in descriptors:
         layer, heads = descriptor.split(":")
         layer = int(layer) - 1
+		# avoid extra empty list after head.split
+        heads.rstrip(',')
         heads = set(int(head) - 1 for head in heads.split(","))
         if layer not in to_prune:
             to_prune[layer] = set()
