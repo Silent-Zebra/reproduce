@@ -1,0 +1,51 @@
+12:11:42-INFO: device: cuda n_gpu: 1, distributed training: False, 16-bits training: False
+12:11:42-INFO: loading vocabulary file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /h/zhaostep/.pytorch_pretrained_bert/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+12:11:43-INFO: loading archive file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased.tar.gz from cache at /h/zhaostep/.pytorch_pretrained_bert/distributed_-1/9c41111e2de84547a463fd39217199738d1e3deb72d4fec4399e6e241983c6f0.ae3cef932725ca7a30cdcb93fc6e09150a55e2a130ec7af63975a16c153ae2ba
+12:11:43-INFO: extracting archive file /h/zhaostep/.pytorch_pretrained_bert/distributed_-1/9c41111e2de84547a463fd39217199738d1e3deb72d4fec4399e6e241983c6f0.ae3cef932725ca7a30cdcb93fc6e09150a55e2a130ec7af63975a16c153ae2ba to temp dir /tmp/tmpm4e9xt7x
+12:11:47-INFO: Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+12:11:50-INFO: Weights of BertForSequenceClassification not initialized from pretrained model: ['classifier.weight', 'classifier.bias']
+12:11:50-INFO: Weights from pretrained model not used in BertForSequenceClassification: ['cls.predictions.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.decoder.weight', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias']
+12:11:55-INFO: loading archive file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased.tar.gz from cache at /h/zhaostep/.pytorch_pretrained_bert/9c41111e2de84547a463fd39217199738d1e3deb72d4fec4399e6e241983c6f0.ae3cef932725ca7a30cdcb93fc6e09150a55e2a130ec7af63975a16c153ae2ba
+12:11:55-INFO: extracting archive file /h/zhaostep/.pytorch_pretrained_bert/9c41111e2de84547a463fd39217199738d1e3deb72d4fec4399e6e241983c6f0.ae3cef932725ca7a30cdcb93fc6e09150a55e2a130ec7af63975a16c153ae2ba to temp dir /tmp/tmpz3s8kq85
+12:11:59-INFO: Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+12:12:01-INFO: ***** Running evaluation *****
+12:12:01-INFO:   Num examples = 1043
+12:12:01-INFO:   Batch size = 32
+Evaluating:   0%|          | 0/33 [00:00<?, ?it/s]Evaluating:   3%|▎         | 1/33 [00:00<00:17,  1.81it/s]Evaluating:   6%|▌         | 2/33 [00:00<00:14,  2.12it/s]Evaluating:   9%|▉         | 3/33 [00:01<00:12,  2.42it/s]Evaluating:  12%|█▏        | 4/33 [00:01<00:10,  2.68it/s]Evaluating:  15%|█▌        | 5/33 [00:01<00:09,  2.89it/s]Evaluating:  18%|█▊        | 6/33 [00:01<00:08,  3.07it/s]Evaluating:  21%|██        | 7/33 [00:02<00:08,  3.20it/s]Evaluating:  24%|██▍       | 8/33 [00:02<00:07,  3.30it/s]Evaluating:  27%|██▋       | 9/33 [00:02<00:07,  3.38it/s]Evaluating:  30%|███       | 10/33 [00:03<00:06,  3.43it/s]Evaluating:  33%|███▎      | 11/33 [00:03<00:06,  3.47it/s]Evaluating:  36%|███▋      | 12/33 [00:03<00:05,  3.50it/s]Evaluating:  39%|███▉      | 13/33 [00:03<00:05,  3.52it/s]Evaluating:  42%|████▏     | 14/33 [00:04<00:05,  3.54it/s]Evaluating:  45%|████▌     | 15/33 [00:04<00:05,  3.55it/s]Evaluating:  48%|████▊     | 16/33 [00:04<00:04,  3.55it/s]Evaluating:  52%|█████▏    | 17/33 [00:05<00:04,  3.56it/s]Evaluating:  55%|█████▍    | 18/33 [00:05<00:04,  3.56it/s]Evaluating:  58%|█████▊    | 19/33 [00:05<00:03,  3.56it/s]Evaluating:  61%|██████    | 20/33 [00:05<00:03,  3.57it/s]Evaluating:  64%|██████▎   | 21/33 [00:06<00:03,  3.57it/s]Evaluating:  67%|██████▋   | 22/33 [00:06<00:03,  3.57it/s]Evaluating:  70%|██████▉   | 23/33 [00:06<00:02,  3.57it/s]Evaluating:  73%|███████▎  | 24/33 [00:06<00:02,  3.57it/s]Evaluating:  76%|███████▌  | 25/33 [00:07<00:02,  3.57it/s]Evaluating:  79%|███████▉  | 26/33 [00:07<00:01,  3.57it/s]Evaluating:  82%|████████▏ | 27/33 [00:07<00:01,  3.57it/s]Evaluating:  85%|████████▍ | 28/33 [00:08<00:01,  3.57it/s]Evaluating:  88%|████████▊ | 29/33 [00:08<00:01,  3.57it/s]Evaluating:  91%|█████████ | 30/33 [00:08<00:00,  3.57it/s]Evaluating:  94%|█████████▍| 31/33 [00:08<00:00,  3.57it/s]Evaluating:  97%|█████████▋| 32/33 [00:09<00:00,  3.57it/s]Evaluating: 100%|██████████| 33/33 [00:09<00:00,  3.95it/s]Evaluating: 100%|██████████| 33/33 [00:09<00:00,  3.50it/s]
+12:12:11-INFO: ***** Eval results *****
+12:12:11-INFO:   Matthew's correlation = 0.5753011877541249
+12:12:11-INFO:   eval_accuracy = 0.8274209012464045
+12:12:11-INFO:   eval_loss = 0.4914660221247962
+12:12:11-INFO:   global_step = 0
+12:12:11-INFO:   inference_time = 9.39401650428772
+12:12:11-INFO:   loss = None
+Better speed can be achieved with apex installed from https://www.github.com/nvidia/apex.
+Base acc: 0.5753011877541249
+Part: 
+Layer: 1	-0.01080	-0.00657	-0.00894	-0.02117	-0.01312	-0.01510	-0.00934	-0.00871	-0.00951	-0.00161	-0.01152	-0.01129Layer: 2	-0.00256	-0.00004	0.00250	0.01015	0.01015	0.00249	-0.00006	0.00251	0.00251	-0.00260	-0.00516	0.00000Layer: 3	-0.01021	-0.01285	-0.01543	-0.02314	-0.02048	-0.02579	-0.02574	-0.02055	-0.02307	-0.00243	-0.02065	-0.02323Layer: 4	0.00255	-0.00006	-0.00262	0.00760	-0.00004	-0.01031	-0.00262	-0.00770	-0.00001	0.01521	-0.01032	0.00504Layer: 5	0.00250	0.00507	-0.00513	-0.01032	0.00000	0.00006	0.00252	-0.00006	0.01522	0.01275	0.00511	0.01271Layer: 6	-0.00234	0.00000	0.00006	-0.00518	0.00006	0.00252	-0.01530	0.00269	-0.00234	0.00772	0.00517	-0.01014Layer: 7	-0.03611	-0.01530	0.00905	0.00115	-0.01727	-0.01757	-0.00676	0.00574	0.00628	-0.00951	-0.00737	-0.00195Layer: 8	0.00760	0.00504	0.01522	0.00759	0.01268	0.00510	0.00761	0.01272	0.00504	0.01013	0.01525	0.01525Layer: 9	-0.05512	-0.07179	-0.06715	-0.06107	-0.04808	-0.03803	-0.03350	-0.06578	-0.00516	-0.07079	-0.08121	-0.07618Layer: 10	-0.01514	-0.01268	-0.00250	-0.00001	-0.00762	-0.01019	-0.00744	-0.01783	-0.02276	0.00268	0.00255	-0.01772Layer: 11	-0.00256	-0.00256	-0.00513	-0.00004	0.00252	0.00256	-0.00256	-0.01252	0.00000	0.00000	-0.00250	-0.00004Layer: 12	-0.00987	-0.00762	-0.00972	-0.00972	-0.00512	-0.00716	-0.01011	-0.01229	-0.01229	-0.00987	-0.01019	-0.00987
