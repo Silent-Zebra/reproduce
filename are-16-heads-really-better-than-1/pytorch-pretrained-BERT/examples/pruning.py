@@ -15,14 +15,15 @@ def parse_head_pruning_descriptors(
     if len(descriptors) == 1:
         descriptors = descriptors[0].split(",")
     for descriptor in descriptors:
-        layer, heads = descriptor.split(":")
-        layer = int(layer) - 1
-		# avoid extra empty list after head.split
-        heads.rstrip(',')
-        heads = set(int(head) - 1 for head in heads.split(","))
-        if layer not in to_prune:
-            to_prune[layer] = set()
-        to_prune[layer].update(heads)
+        if descriptor != "":
+            layer, heads = descriptor.split(":")
+            layer = int(layer) - 1
+            # avoid extra empty list after head.split
+            heads.rstrip(',')
+            heads = set(int(head) - 1 for head in heads.split(","))
+            if layer not in to_prune:
+                to_prune[layer] = set()
+            to_prune[layer].update(heads)
     # Reverse
     if reverse_descriptors:
         if n_heads is None:
@@ -31,6 +32,8 @@ def parse_head_pruning_descriptors(
             to_prune[layer] = set([head for head in range(n_heads)
                                    if head not in heads])
     return to_prune
+
+
 
 
 def to_pruning_descriptor(to_prune):
