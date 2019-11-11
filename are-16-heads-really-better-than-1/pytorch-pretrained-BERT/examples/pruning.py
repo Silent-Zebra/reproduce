@@ -2,6 +2,7 @@ from math import sqrt
 from logger import logger
 
 
+
 def parse_head_pruning_descriptors(
     descriptors,
     reverse_descriptors=False,
@@ -10,6 +11,9 @@ def parse_head_pruning_descriptors(
     """Returns a dictionary mapping layers to the set of heads to prune in
     this layer"""
     to_prune = {}
+    # For multiple heads pruning from command line
+    if len(descriptors) == 1:
+        descriptors = descriptors[0].split(",")
     for descriptor in descriptors:
         layer, heads = descriptor.split(":")
         layer = int(layer) - 1
