@@ -2,10 +2,10 @@ import re
 import matplotlib.pyplot as plt
 import math
 import numpy as np
-
+from scipy import stats
 
 # read file
-f = open("MNLIout.txt", 'r', errors='ignore')
+f = open("MNLIOut.txt", 'r', errors='ignore')
 lines = f.readlines()
 f.close()
 
@@ -25,7 +25,7 @@ ablation_lines = lines[-1].split('Layer:')
 for i, layer in enumerate(ablation_lines):
 	ablation_lines[i] = layer.split('\t')[1:]
 ablation_lines = ablation_lines[1:]
-#print("number of example:", num_example)
+print("Number of examples:", num_example)
 #print("batch size:", batch_size)
 #print("speeds:", evaluation_speed)
 #print("base accuracy:", base_acc)
@@ -36,6 +36,27 @@ for i in range(len(ablation_lines)):
 	for j in range(len(ablation_lines[i])):
 		ablation_lines[i][j] = float(ablation_lines[i][j])
 
+# print(ablation_lines)
+np.savetxt("32BERT.csv", ablation_lines, delimiter=",")
+
+ablation_lines = np.array(ablation_lines)
+
+flattened_differences = ablation_lines.flatten()
+
+
+num_test_datapoints = num_example
+
+print("Mean diff = {:.3f}".format(flattened_differences.mean()))
+
+# Test significance
+for i in range(len(flattened_differences)):
+	p = stats.binom_test((flattened_differences[i] + base_acc) * num_test_datapoints,
+						 num_test_datapoints, base_acc, alternative='two-sided')
+	if p < 0.01:
+		print("p = {:.3f}".format(p))
+		print("Index = {}".format(i))
+		print("Value = {}".format(flattened_differences[i]))
+
 # build histogram from ablation accuracy
 accuracy_dist = {}
 for layer in ablation_lines:
@@ -44,9 +65,11 @@ for layer in ablation_lines:
 		accuracy_dist[key] = accuracy_dist.get(key, 0) + 1
 #print(accuracy_dist)
 
+print(base_acc)
+
 # visualize histogram
-ablation_lines_np = np.array(ablation_lines) + base_acc
-ablation_lines_flatten = ablation_lines_np.flatten()
+ablation_lines += base_acc
+ablation_lines_flatten = ablation_lines.flatten()
 hist, bin_edges = np.histogram(ablation_lines_flatten, bins=len(accuracy_dist))
 plt.figure(figsize = [7, 7])
 plt.bar(bin_edges[:-1], hist, width=1, color='white')
