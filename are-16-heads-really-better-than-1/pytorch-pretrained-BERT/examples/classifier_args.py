@@ -264,6 +264,12 @@ def pruning_args(parser):
         action='store_true',
         help="Only retrain the value and output layers for attention heads"
     )
+    prune_group.add_argument(
+        "--prune_by_accuracy",
+        type=bool,
+        default=False,
+        help="Prune heads by accuracy instead of importance score"
+    )
 
 
 def eval_args(parser):

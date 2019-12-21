@@ -414,6 +414,19 @@ def main():
                 for layer in range(len(head_importance)):
                     layer_scores = head_importance[layer].cpu().data
                     logger.info("\t".join(f"{x:.5f}" for x in layer_scores))
+
+            # Order of pruning passed in from a text file?
+            # Start with just greedy via the best ones we had
+            # But that is a static evaluation, later try
+            # Prune one based on greedy, then re-evaluate, then prune again
+            # And repeat.
+            # Later you can try a combinational search or other strategy
+            if args.prune_by_accuracy:
+                head_importance = np.genfromtxt(
+                    "../../32BERT.csv",
+                    delimiter=",")
+                head_importance = torch.from_numpy(head_importance) * -1
+
             # Determine which heads to prune
             to_prune = pruning.what_to_prune(
                 head_importance,

@@ -2,7 +2,6 @@ from math import sqrt
 from logger import logger
 
 
-
 def parse_head_pruning_descriptors(
     descriptors,
     reverse_descriptors=False,
@@ -132,3 +131,4 @@ def what_to_prune(
             to_prune[layer] = set()
         to_prune[layer].add(head)
     return to_prune
+
