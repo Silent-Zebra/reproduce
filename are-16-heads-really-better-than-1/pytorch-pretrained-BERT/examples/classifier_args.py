@@ -270,6 +270,10 @@ def pruning_args(parser):
         default=False,
         help="Prune heads by accuracy instead of importance score"
     )
+    prune_group.add_argument(
+        '--prune_by_accuracy_file', default="32BERT.csv", type=str,
+        help="Used with --prune_by_accuracy"
+    )
 
 
 def eval_args(parser):

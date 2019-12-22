@@ -423,7 +423,7 @@ def main():
             # Later you can try a combinational search or other strategy
             if args.prune_by_accuracy:
                 head_importance = np.genfromtxt(
-                    "32BERT.csv",
+                    args.prune_by_accuracy_file,
                     delimiter=",")
                 head_importance = torch.from_numpy(head_importance) * -1
 
