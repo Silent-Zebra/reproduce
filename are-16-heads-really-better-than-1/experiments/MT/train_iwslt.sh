@@ -3,7 +3,7 @@
 # Data/model folders
 TEXT_ROOT=iwslt14.tokenized.de-en
 DATA_BIN=data-bin/iwslt14.tokenized.de-en
-CKPT_ROOT=/projects/tir3/users/pmichel1/checkpoints
+CKPT_ROOT=./projects/tir3/users/pmichel1/checkpoints #*******
 
 PREPARE=${PREPARE:-1}
 TRAIN=${TRAIN:-1}
@@ -28,11 +28,12 @@ function get_seed (){
 
 EXP_NAME="iwslt14_de-en_8head_before_${SLURM_ARRAY_TASK_ID}"
 SEED=`get_seed $EXP_NAME`
-TRAIN_OPTIONS="${--seed $SEED --arch transformer_iwslt_de_en_8head_before:2}"
+TRAIN_OPTIONS=${--seed $SEED --arch transformer_iwslt_de_en_8head_before:2}
 
 CKPT_DIR=$CKPT_ROOT/$EXP_NAME
 
 # bash fairseq/examples/translation/prepare-iwslt14.sh
+
 
 if [ $PREPARE == 1 ] || [ ! -d $DATA_BIN ]
 then
@@ -47,12 +48,14 @@ fi
 
 if [ $TRAIN == 1 ]
 then
-    mkdir -p $CKPT_DIR
+    echo 'Training'
+    # mkdir -p $CKPT_DIR
     python fairseq/train.py \
         $DATA_BIN \
         -s de \
         -t en \
-        $TRAIN_OPTIONS \
+        --seed $SEED \ #******* and deleted TrainOption
+        --arch 'fconv' \ #*******
         --optimizer adam \
         --adam-betas '(0.9, 0.98)'\
         --lr 0.0005 \
@@ -69,9 +72,9 @@ then
         --save-dir $CKPT_DIR
 fi
 
-if [ $EVAL == 1 ]
+if [ $EVAL == 0 ]
 then
-    # Generate:
+    echo 'Evaluate'
     cat $TEXT_ROOT/test.de | \
     python fairseq/interactive.py \
         $DATA_BIN \
