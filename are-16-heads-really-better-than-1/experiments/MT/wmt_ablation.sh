@@ -26,7 +26,7 @@ cat $SRC_FILE | python fairseq/interactive.py \
     --path $MODEL \
     --beam 5 --lenpen 1.0 --buffer-size 100 --batch-size=64 |\
     grep "^H" | sed -r 's/(@@ )|(@@ ?$)//g' |\
-    perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l $LANG | cut -f3 \
+    perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l ${LANG} | cut -f3 \
     > $OUT_DIR/${OUT_PREFIX}.out.${LANG}
 base_bleu=$(cat $OUT_DIR/${OUT_PREFIX}.out.${LANG} | sacrebleu -w 2 $REF_FILE | cut -d" " -f3)
 echo $base_bleu
@@ -47,7 +47,7 @@ do
                 --path $MODEL \
                 --beam 5 --lenpen 1.0 --buffer-size 100 --batch-size=64 --transformer-mask-heads $mask_str $EXTRA_OPTIONS |\
                 grep "^H" | sed -r 's/(@@ )|(@@ ?$)//g' |\
-                perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l $LANG | cut -f3 \
+                perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l ${LANG} | cut -f3 \
                 > $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.${LANG}
             bleu=$(cat $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.${LANG} | sacrebleu -w 2 $REF_FILE | cut -d" " -f3)
             printf "\t%.2f" $(echo "$bleu - $base_bleu" | bc )
