@@ -23,7 +23,7 @@ mkdir -p $OUT_DIR
 cat $SRC_FILE | python fairseq/interactive.py \
     $DATA_BIN \
     --path $MODEL \
-    "--beam 5 --lenpen 1.0 --buffer-size 100 --batch-size=64" |\
+    --beam 5 --lenpen 1.0 --buffer-size 100 --batch-size=64 |\
     grep "^H" | sed -r 's/(@@ )|(@@ ?$)//g' |\
     perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l fr | cut -f3 |\
     > $OUT_DIR/${OUT_PREFIX}.out.fr
