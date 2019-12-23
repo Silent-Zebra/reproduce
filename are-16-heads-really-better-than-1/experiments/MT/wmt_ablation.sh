@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source env/bin/activate
+# source env/bin/activate
 
 CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 DATA_BIN=./wmt16_en-de/wmt16.en-de.joined-dict.newstest2014
