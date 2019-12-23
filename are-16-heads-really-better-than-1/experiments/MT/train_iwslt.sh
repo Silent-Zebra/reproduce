@@ -3,7 +3,7 @@
 # Data/model folders
 TEXT_ROOT=iwslt14.tokenized.de-en
 DATA_BIN=data-bin/iwslt14.tokenized.de-en
-CKPT_ROOT=./projects/tir3/users/pmichel1/checkpoints #*******
+CKPT_ROOT=./projects/tir3/users/pmichel1/checkpoints 
 
 PREPARE=${PREPARE:-1}
 TRAIN=${TRAIN:-1}
@@ -49,13 +49,13 @@ fi
 if [ $TRAIN == 1 ]
 then
     echo 'Training'
-    # mkdir -p $CKPT_DIR
+    mkdir -p $CKPT_DIR
     python fairseq/train.py \
         $DATA_BIN \
         -s de \
         -t en \
-        --seed $SEED \ #******* and deleted TrainOption
-        --arch 'fconv' \ #*******
+        --seed $SEED \
+        --arch 'fconv' \
         --optimizer adam \
         --adam-betas '(0.9, 0.98)'\
         --lr 0.0005 \
