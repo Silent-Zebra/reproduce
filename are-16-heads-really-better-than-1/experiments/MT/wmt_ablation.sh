@@ -9,10 +9,10 @@ MODEL=./wmt16_en-de/wmt16.en-de.joined-dict.transformer/model.pt
 # MODEL=/projects/tir3/users/pmichel1/checkpoints/wmt14.en-fr.joined-dict.transformer/model.pt
 MOSES_SCRIPTS="fairseq/examples/translation/mosesdecoder/scripts"
 OUT_DIR=output
-SRC_FILE=${"wmt_16_en_de_data/newstest2014.tok.bpe.32000.en":-1}
-REF_FILE=${"wmt_16_en_de_data/newstest2014.de":-2}
-OUT_PREFIX=${"newstest2014":-3}
-EXTRA_OPTIONS=${"":-3}
+SRC_FILE="wmt_16_en_de_data/newstest2014.tok.bpe.32000.en"
+REF_FILE="wmt_16_en_de_data/newstest2014.de"
+OUT_PREFIX="newstest2014"
+EXTRA_OPTIONS=$3
 # Use the following instead for ablating all but one head in a layer
 # OUT_PREFIX=newstest2013.allbut
 # EXTRA_OPTIONS="--transformer-mask-all-but-one-head"
