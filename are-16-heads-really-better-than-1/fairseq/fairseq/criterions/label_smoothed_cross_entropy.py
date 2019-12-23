@@ -80,6 +80,7 @@ class LabelSmoothedCrossEntropyCriterion(FairseqCriterion):
         loss = (1. - self.eps) * nll_loss + eps_i * smooth_loss
         # Add disagreement regularization
         alpha = 1
+        reg_loss = 0
         if getattr(self.args, "disagreement_reg", 0.0) > 0:
             alpha = getattr(self.args, "disagreement_reg", 0.0)
             encoder_layers = self.args.encoder_layers
