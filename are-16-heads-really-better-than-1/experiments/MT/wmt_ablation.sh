@@ -27,7 +27,7 @@ cat $SRC_FILE | python fairseq/interactive.py \
     grep "^H" | sed -r 's/(@@ )|(@@ ?$)//g' |\
     perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l fr | cut -f3 |\
     > $OUT_DIR/${OUT_PREFIX}.out.fr
-base_bleu=$(cat $OUT_DIR/${OUT_PREFIX}.out.fr | sacrebleu $REF_FILE | cut -d" " -f3)
+base_bleu=$(cat $OUT_DIR/${OUT_PREFIX}.out.de | sacrebleu $REF_FILE | cut -d" " -f3)
 echo $base_bleu
 
 # Iterate over the 3 "parts" of the model, Enc-Enc (E), Enc-Dec (A) and Dec-Dec (D)
@@ -48,7 +48,7 @@ do
                 grep "^H" | sed -r 's/(@@ )|(@@ ?$)//g' |\
                 perl $MOSES_SCRIPTS/tokenizer/detokenizer.perl -q -l fr | cut -f3 |\
                 > $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.fr
-            bleu=$(cat $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.fr | sacrebleu $REF_FILE | cut -d" " -f3)
+            bleu=$(cat $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.de | sacrebleu $REF_FILE | cut -d" " -f3)
             printf "\t%.2f" $(echo "$bleu - $base_bleu" | bc )
         done
         echo ""
