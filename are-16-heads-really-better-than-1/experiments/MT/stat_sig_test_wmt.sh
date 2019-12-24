@@ -12,11 +12,10 @@ OUT_DIR=output
 # tokenized en
 SRC_FILE="wmt14_en_fr_data/newstest2014.tok.en"
 REF_FILE="wmt14_en_fr_data/newstest2014.fr"
-# OUT_PREFIX="newstest2014_en-fr"
-# EXTRA_OPTIONS=$3
+
+OUT_PREFIX="newstest2014_en-fr"
 # Use the following instead for ablating all but one head in a layer
-OUT_PREFIX=newstest2014_en-fr.allbut
-EXTRA_OPTIONS="--transformer-mask-all-but-one-head"
+# OUT_PREFIX=newstest2014_en-fr.allbut
 
 # Iterate over the 3 "parts" of the model, Enc-Enc (E), Enc-Dec (A) and Dec-Dec (D)
 for part in "E" "A" "D"
