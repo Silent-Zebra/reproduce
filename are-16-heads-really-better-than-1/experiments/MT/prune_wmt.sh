@@ -8,7 +8,7 @@ python fairseq/prune.py \
      \
     -s en \
     -t fr \
-    --restore-file  \
+    --restore-file restore \
     -a transformer_vaswani_wmt_en_de_big \
     --share-all-embeddings \
     --normalize-by-layer \
