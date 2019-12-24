@@ -27,8 +27,9 @@ do
         for head in `seq 1 16`
         do
             mask_str="${part}:${layer}:${head}"
-            pval=$(cat $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.fr | grep p= | cut -d "=" -f2)
-            printf "\t%.3f" $(echo $pval)
+            pval=$(compare-mt $REF_FILE $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.fr $OUT_DIR/${OUT_PREFIX}.out.fr \
+            --compare_scores score_type=bleu,bootstrap=1000,prob_thresh=0.01 | grep p= | cut -d "=" -f2)
+            printf "\t%.3f" $pval
         done
         echo ""
     done
