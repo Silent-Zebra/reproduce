@@ -7,9 +7,9 @@ EXTRA_OPTIONS=$1
 python fairseq/prune.py \
      \
     -s en \
-    -t fr \
-    --restore-file restore \
+    -t de \
     -a transformer_vaswani_wmt_en_de_big \
+    --restore-file restore \
     --share-all-embeddings \
     --normalize-by-layer \
     --reset-optimizer \
