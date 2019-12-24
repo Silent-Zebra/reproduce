@@ -12,11 +12,11 @@ OUT_DIR=output
 # tokenized en
 SRC_FILE="wmt14_en_fr_data/newstest2014.tok.en"
 REF_FILE="wmt14_en_fr_data/newstest2014.fr"
-OUT_PREFIX="newstest2014_en-fr"
-EXTRA_OPTIONS=$3
+# OUT_PREFIX="newstest2014_en-fr"
+# EXTRA_OPTIONS=$3
 # Use the following instead for ablating all but one head in a layer
-# OUT_PREFIX=newstest2013.allbut
-# EXTRA_OPTIONS="--transformer-mask-all-but-one-head"
+OUT_PREFIX=newstest2014_en-fr.allbut
+EXTRA_OPTIONS="--transformer-mask-all-but-one-head"
 
 mkdir -p $OUT_DIR
 # Compute base BLEU
