@@ -28,7 +28,7 @@ do
         do
             mask_str="${part}:${layer}:${head}"
             pval=$(cat $OUT_DIR/${OUT_PREFIX}.${mask_str}.out.fr | grep p= | cut -d "=" -f2)
-            printf "\t%.2f" $pval
+            printf "\t%.3f" $(echo $pval)
         done
         echo ""
     done
