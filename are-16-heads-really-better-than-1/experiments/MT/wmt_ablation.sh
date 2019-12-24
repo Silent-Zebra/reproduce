@@ -10,7 +10,7 @@ MODEL=./wmt14_en-fr/wmt14.en-fr.joined-dict.transformer/model.pt
 MOSES_SCRIPTS="fairseq/examples/translation/mosesdecoder/scripts"
 OUT_DIR=output
 # tokenized en
-SRC_FILE="wmt14_en_fr_data/newstest2014.tok.clean.en"
+SRC_FILE="wmt14_en_fr_data/newstest2014.tok.en"
 REF_FILE="wmt14_en_fr_data/newstest2014.fr"
 OUT_PREFIX="newstest2014_en-fr"
 EXTRA_OPTIONS=$3
