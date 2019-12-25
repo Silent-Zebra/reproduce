@@ -64,6 +64,18 @@ def eval_bleu_score(
     ref = [(eval_data.tgt.get_original_text(i) + " ").replace(remove_bpe, "")
            for i in range(len(eval_data.tgt))]
 
+    print("----")
+    print(model)
+    print(task)
+    print(eval_data)
+
+    print("RESULTS")
+    print(results)
+    print("OUT")
+    print(out)
+    print("REF")
+    print(ref)
+
     return sacrebleu.corpus_bleu(out, [ref], force=True, tokenize="none")
 
 
@@ -291,7 +303,7 @@ def batch_head_stats(attn_variables, triu_masking=False):
     # Results
     results = {}
     # Triu mask for self att
-    triu_mask = torch.triu(p.new_ones((p.size(2), p.size(3))), 1).byte() 
+    triu_mask = torch.triu(p.new_ones((p.size(2), p.size(3))), 1).byte()
     # Reverse mask
     if in_mask is not None:
         in_mask = torch.eq(in_mask, 0.0).float()
@@ -316,7 +328,7 @@ def batch_head_stats(attn_variables, triu_masking=False):
     plogp = p * logp
     plogp[p==0] = 0
     if triu_masking:
-        plogp.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0), 0) 
+        plogp.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0), 0)
     #plogp.masked_fill_(p_mask.eq(0), 0)
     H_p = -plogp.sum(-1)
     results["entropy"] = reduce_head(H_p)
@@ -324,7 +336,7 @@ def batch_head_stats(attn_variables, triu_masking=False):
     plogq = torch.einsum("bilk,bjlk->bijlk", [p, logp])
     plogq.masked_fill_((p == 0).unsqueeze(1), 0)
     if triu_masking:
-        plogq.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0).unsqueeze(0), 0) 
+        plogq.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0).unsqueeze(0), 0)
     H_pq = -plogq.sum(-1)
     # Avg KL (bsz x nhead x L)
     avg_KL = (H_pq - H_p.unsqueeze(2))
