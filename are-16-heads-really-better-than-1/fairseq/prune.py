@@ -134,6 +134,11 @@ def main(args):
         shard_id=args.distributed_rank,
     )
     # Load the latest checkpoint if one is available
+    print("DEBUGGING")
+    print(load_checkpoint)
+    print(args)
+    print(trainer)
+    print(epoch_itr)
     if not load_checkpoint(args, trainer, epoch_itr):
         trainer.dummy_train_step([dummy_batch])
 
