@@ -135,7 +135,7 @@ def main(args):
     )
     # Load the latest checkpoint if one is available
     print("DEBUGGING")
-    print(load_checkpoint)
+    print(load_checkpoint(args, trainer, epoch_itr))
     print(args)
     print(trainer)
     print(epoch_itr)
