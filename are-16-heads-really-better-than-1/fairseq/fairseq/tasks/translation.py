@@ -123,6 +123,14 @@ class TranslationTask(FairseqTask):
             for k in itertools.count():
                 split_k = split + (str(k) if k > 0 else '')
 
+                print(split_k)
+                print(src)
+                print(tgt)
+                print(data_path)
+
+                print(dk)
+                print(k)
+
                 # infer langcode
                 src, tgt = self.args.source_lang, self.args.target_lang
                 if split_exists(split_k, src, tgt, src, data_path):
