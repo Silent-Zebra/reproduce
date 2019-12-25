@@ -8,7 +8,7 @@
 """
 Train a new model on one or across multiple GPUs.
 """
-
+import copy
 import collections
 import itertools
 import os
@@ -22,7 +22,7 @@ from fairseq.meters import AverageMeter, StopwatchMeter
 from itertools import islice
 
 from fairseq.sequence_generator import SequenceGenerator
-from interactive import translate_corpus #, parse_head_pruning_descriptors, mask_heads
+from interactive import translate_corpus, mask_heads
 from math import ceil
 import sacrebleu
 
@@ -119,17 +119,17 @@ def main(args):
         args.max_tokens,
         args.max_sentences,
     ))
-    # "Prune" heads (actually mask but shh...)
-    if len(args.transformer_mask_heads) > 0:
-        # Determine which head to prune
-        to_prune = parse_head_pruning_descriptors(
-            args.transformer_mask_heads,
-            reverse_descriptors=args.transformer_mask_all_but_one_head,
-            n_heads=model.encoder.layers[0].self_attn.num_heads
-        )
-        print(to_prune)
-        # Apply pruning
-        mask_heads(model, to_prune, args.transformer_mask_rescale)
+    ## "Prune" heads (actually mask but shh...)
+    #if len(args.transformer_mask_heads) > 0:
+    #    # Determine which head to prune
+    #    to_prune = parse_head_pruning_descriptors(
+    #        args.transformer_mask_heads,
+    #        reverse_descriptors=args.transformer_mask_all_but_one_head,
+    #        n_heads=model.encoder.layers[0].self_attn.num_heads
+    #    )
+    #    print(to_prune)
+    #    # Apply pruning
+    #    mask_heads(model, to_prune, args.transformer_mask_rescale)
 
     # Save initial model
     initial = os.path.join(args.save_dir, "checkpoint_initial.pt")
@@ -180,10 +180,10 @@ def main(args):
         save_interval = 5 # prune and save checkpoint for every five epoch
         if epoch_itr.epoch % save_interval == 0: #****** changed
 			# do prunning before saving
-            prune(args) #****** changed
+            prune2(args, task, model, trainer, epoch_itr) #****** changed2
 			# save checkpoint
             save_checkpoint(args, trainer, epoch_itr, valid_losses[0])
-    prune(args) #****** changed do last prunning on the last chekcpoint saved
+    prune2(args, task, model, trainer, epoch_itr) #****** changed2 do last prunning on the last chekcpoint saved
 	# ***********************************Above Changed******************************
     train_meter.stop()
     print('| done training in {:.1f} seconds'.format(train_meter.sum))
@@ -488,6 +488,118 @@ def eval_bleu_score(
     return sacrebleu.corpus_bleu(out, [ref], force=True, tokenize="none")
 
 
+def prune2(args, task, model, trainer, epoch_itr): # changed2
+    if args.max_tokens is None:
+        args.max_tokens = 6000
+    print(args)
+
+	# avoid aliasing
+    task = copy.deepcopy(task)
+    model = copy.deepcopy(model)
+    trainer = copy.deepcopy(trainer)
+    epoch_itr = copy.deepcopy(trainer)
+    if not torch.cuda.is_available():
+        raise NotImplementedError('Training on CPU is not supported')
+    torch.cuda.set_device(args.device_id)
+    torch.manual_seed(args.seed)
+    # Make a dummy batch to (i) warm the caching allocator and (ii) as a
+    # placeholder DistributedDataParallel when there's an uneven number of
+    # batches per worker.
+    max_positions = utils.resolve_max_positions(
+        task.max_positions(),
+        model.max_positions(),
+    )
+    dummy_batch = task.dataset('train').get_dummy_batch(
+        args.max_tokens, max_positions)
+
+    print('| training on {} GPUs'.format(args.distributed_world_size))
+    print('| max tokens per GPU = {} and max sentences per GPU = {}'.format(
+        args.max_tokens,
+        args.max_sentences,
+    ))
+    print('| Optimizer {}'.format(trainer.optimizer.__class__.__name__))
+
+    # Train until the learning rate gets too small
+    prune_meter = StopwatchMeter()
+    prune_meter.start()
+    # Estimate head importance scores
+    head_importance, head_stats = estimate_head_importance(
+        args, trainer, task, epoch_itr)
+    prune_meter.stop()
+    print('| done estimating head importance in {:.1f} seconds'.format(
+        prune_meter.sum))
+    torch.save(
+        head_stats, f"{os.path.dirname(args.restore_file)}/heads_stats.bin")
+    # Print
+    print("Head importances")
+    print("Encoder self attention")
+    for layer in range(head_importance["encoder_self"].size(0)):
+        print(
+            "\t".join(f"{x:.5f}" for x in head_importance["encoder_self"][layer]))
+    print("Encoder decoder attention")
+    for layer in range(head_importance["encoder_decoder"].size(0)):
+        print(
+            "\t".join(f"{x:.5f}" for x in head_importance["encoder_decoder"][layer]))
+    print("Decoder self attention")
+    for layer in range(head_importance["decoder_self"].size(0)):
+        print(
+            "\t".join(f"{x:.5f}" for x in head_importance["decoder_self"][layer]))
+    # Print sorted pruning profile
+    encoder_self_profile = get_profile(
+        head_importance["encoder_self"], prefix="E")
+    encoder_decoder_profile = get_profile(
+        head_importance["encoder_decoder"], prefix="A")
+    decoder_self_profile = get_profile(
+        head_importance["decoder_self"], prefix="D")
+    # Join all
+    all_profiles = {}
+    if not (args.decoder_self_only or args.encoder_decoder_only):
+        all_profiles.update(encoder_self_profile)
+    if not (args.encoder_self_only or args.decoder_self_only):
+        all_profiles.update(encoder_decoder_profile)
+    if not (args.encoder_self_only or args.encoder_decoder_only):
+        all_profiles.update(decoder_self_profile)
+    sorted_profiles = sorted(
+        all_profiles.items(),
+        key=lambda x: x[1],
+        reverse=args.one_minus
+    )
+    print("Heads sorted by importance:")
+    print(" ".join(p for p, _ in sorted_profiles))
+    print("Sorted head importance scores:")
+    print(" ".join(f"{v.data:.5f}" for _, v in sorted_profiles))
+
+    tot_n_heads = len(sorted_profiles)
+
+    for i in range(0, 10):
+        n_to_prune = int(ceil(tot_n_heads * i / 10))
+        to_prune_profile = [p for p, _ in sorted_profiles[:n_to_prune]]
+        to_prune = parse_head_pruning_descriptors(
+            to_prune_profile,
+            reverse_descriptors=False
+        )
+        print(f"Evaluating following profile: \t{' '.join(to_prune_profile)}")
+        # Apply pruning
+        mask_heads(model, to_prune, args.transformer_mask_rescale)
+        bleu = eval_bleu_score(
+            model,
+            task,
+            task.dataset(args.valid_subset),
+            beam=args.beam,
+            replace_unk=args.replace_unk,
+            lenpen=args.lenpen,
+            buffer_size=100,
+            use_cuda=torch.cuda.is_available() and not args.cpu,
+            remove_bpe=args.remove_bpe,
+            max_sentences=args.max_sentences,
+            max_tokens=args.max_tokens,
+            stop_early=not args.no_early_stop,
+            normalize_scores=not args.unnormalized,
+            min_len=args.min_len,
+        )
+        print(f"BLEU score: \t{bleu.score:.2f}")
+        sys.stdout.flush()
+
 def prune(args):
     if args.max_tokens is None:
         args.max_tokens = 6000
@@ -712,7 +824,7 @@ def batch_head_stats(attn_variables, triu_masking=False):
     # Results
     results = {}
     # Triu mask for self att
-    triu_mask = torch.triu(p.new_ones((p.size(2), p.size(3))), 1).byte()
+    triu_mask = torch.triu(p.new_ones((p.size(2), p.size(3))), 1).byte() 
     # Reverse mask
     if in_mask is not None:
         in_mask = torch.eq(in_mask, 0.0).float()
@@ -737,7 +849,7 @@ def batch_head_stats(attn_variables, triu_masking=False):
     plogp = p * logp
     plogp[p==0] = 0
     if triu_masking:
-        plogp.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0), 0)
+        plogp.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0), 0) 
     #plogp.masked_fill_(p_mask.eq(0), 0)
     H_p = -plogp.sum(-1)
     results["entropy"] = reduce_head(H_p)
@@ -745,7 +857,7 @@ def batch_head_stats(attn_variables, triu_masking=False):
     plogq = torch.einsum("bilk,bjlk->bijlk", [p, logp])
     plogq.masked_fill_((p == 0).unsqueeze(1), 0)
     if triu_masking:
-        plogq.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0).unsqueeze(0), 0)
+        plogq.masked_fill_(triu_mask.unsqueeze(0).unsqueeze(0).unsqueeze(0), 0) 
     H_pq = -plogq.sum(-1)
     # Avg KL (bsz x nhead x L)
     avg_KL = (H_pq - H_p.unsqueeze(2))
@@ -818,10 +930,8 @@ def estimate_head_importance(args, trainer, task, epoch_itr):
     # Initialize head importance scores
     encoder_layers = trainer.args.encoder_layers
     decoder_layers = trainer.args.decoder_layers
-    encoder_heads = 16
-    decoder_heads = 16
-    # encoder_heads = trainer.args.encoder_attention_heads
-    # decoder_heads = trainer.args.decoder_attention_heads
+    encoder_heads = trainer.args.encoder_attention_heads
+    decoder_heads = trainer.args.decoder_attention_heads
     device = next(trainer.model.parameters()).device
     head_importance = {
         "encoder_self": torch.zeros(encoder_layers, encoder_heads).to(device),
