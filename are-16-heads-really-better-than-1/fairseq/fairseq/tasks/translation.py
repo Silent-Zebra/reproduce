@@ -102,9 +102,6 @@ class TranslationTask(FairseqTask):
         def split_exists(split, src, tgt, lang, data_path):
             filename = os.path.join(data_path, '{}.{}-{}.{}'.format(split, src, tgt, lang))
 
-            print("Split exists filename")
-            print(filename)
-
             if self.args.raw_text and IndexedRawTextDataset.exists(filename):
                 return True
             elif not self.args.raw_text and IndexedDataset.exists(filename):
