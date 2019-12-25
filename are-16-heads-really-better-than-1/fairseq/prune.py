@@ -65,16 +65,23 @@ def eval_bleu_score(
            for i in range(len(eval_data.tgt))]
 
     print("----")
-    print(model)
     print(task)
     print(eval_data)
+    print(eval_data.src)
+    print(len(eval_data.src))
+    print(eval_data.tgt)
+    print(len(eval_data.tgt))
+    for i in range(5):
+        print(eval_data.src.get_original_text(i))
+        print(eval_data.tgt.get_original_text(i))
 
-    print("RESULTS")
-    print(results)
-    print("OUT")
-    print(out)
-    print("REF")
-    print(ref)
+
+    # print("RESULTS")
+    # print(results)
+    # print("OUT")
+    # print(out)
+    # print("REF")
+    # print(ref)
 
     return sacrebleu.corpus_bleu(out, [ref], force=True, tokenize="none")
 
