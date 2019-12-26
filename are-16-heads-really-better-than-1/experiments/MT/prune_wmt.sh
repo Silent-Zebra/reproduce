@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
-DATA_BIN=/projects/tir3/users/pmichel1/data-bin/wmt14.en-fr.joined-dict.newstest2009-13
-MODEL=/projects/tir3/users/pmichel1/checkpoints/wmt14.en-fr.joined-dict.transformer/model.pt
+# DATA_BIN=/projects/tir3/users/pmichel1/data-bin/wmt14.en-fr.joined-dict.newstest2009-13
+# MODEL=/projects/tir3/users/pmichel1/checkpoints/wmt14.en-fr.joined-dict.transformer/model.pt
+DATA_BIN=wmt14_en-fr/wmt14.en-fr.joined-dict.newstest2014
+MODEL=wmt14_en-fr/wmt14.en-fr.joined-dict.transformer/model.pt
 EXTRA_OPTIONS=$1
 
 python fairseq/prune.py \
-     \
+    $DATA_BIN \
     -s en \
-    -t de \
-    -a transformer_vaswani_wmt_en_de_big \
-    --restore-file restore \
+    -t fr \
+    -a transformer_vaswani_wmt_en_fr_big \
+    --restore-file $MODEL \
     --share-all-embeddings \
     --normalize-by-layer \
     --reset-optimizer \
