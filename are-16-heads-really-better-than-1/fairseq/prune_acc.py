@@ -524,35 +524,23 @@ def add_pruning_args(parser):
 
 
 if __name__ == '__main__':
-    accuracies = np.loadtxt("../iwslt_ablation_out.txt")
-    importances = -accuracies
-    encoder_layers = 6
-    encoder_heads = 8
-    head_importance = {
-        "encoder_self": torch.zeros(encoder_layers, encoder_heads),
-        # "encoder_decoder": torch.zeros(decoder_layers, decoder_heads),
-        # "decoder_self": torch.zeros(decoder_layers, decoder_heads),
-    }
-    head_importance["encoder_self"] += torch.from_numpy(importances[:6,1:]).float()
-    print(head_importance)
+    parser = options.get_training_parser()
+    add_pruning_args(parser)
+    options.add_pruning_args(parser)
+    options.add_generation_args(parser)
+    args = options.parse_args_and_arch(parser)
 
-    # parser = options.get_training_parser()
-    # add_pruning_args(parser)
-    # options.add_pruning_args(parser)
-    # options.add_generation_args(parser)
-    # args = options.parse_args_and_arch(parser)
-    #
-    # if args.distributed_port > 0 or args.distributed_init_method is not None:
-    #     raise NotImplementedError(
-    #         "Pruning doesn't support multiprocessing yet")
-    #     from distributed_train import main as distributed_main
-    #
-    #     distributed_main(args)
-    # elif args.distributed_world_size > 1:
-    #     raise NotImplementedError(
-    #         "Pruning doesn't support multiprocessing yet")
-    #     from multiprocessing_train import main as multiprocessing_main
-    #
-    #     multiprocessing_main(args)
-    # else:
-    #     main(args)
+    if args.distributed_port > 0 or args.distributed_init_method is not None:
+        raise NotImplementedError(
+            "Pruning doesn't support multiprocessing yet")
+        from distributed_train import main as distributed_main
+
+        distributed_main(args)
+    elif args.distributed_world_size > 1:
+        raise NotImplementedError(
+            "Pruning doesn't support multiprocessing yet")
+        from multiprocessing_train import main as multiprocessing_main
+
+        multiprocessing_main(args)
+    else:
+        main(args)
