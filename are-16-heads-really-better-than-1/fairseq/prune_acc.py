@@ -17,7 +17,7 @@ import numpy as np
 from fairseq.sequence_generator import SequenceGenerator
 from interactive import translate_corpus, parse_head_pruning_descriptors, mask_heads
 from math import ceil
-# import sacrebleu
+import sacrebleu
 import os
 
 
