@@ -1,12 +1,15 @@
+import re
+import matplotlib.pyplot as plt
+import numpy as np
 def get_prune_bleu_pair(filepath):
 	total_head = 48
 	f = open(filepath, 'r')
 	string = f.read()
 	prune_profile = re.findall("Evaluating following profile: \t(.*?)\n", string)
 	prune_profile = [line.split() for line in prune_profile]
-	total_head = len(prune_profile[-1])
+	total_head = len(prune_profile[-1]) + (len(prune_profile[-1]) - len(prune_profile[-2]))
 	bleu_scores = re.findall("BLEU score: 	(.*?)\n", string)
-	x = [round(len(line)/total_head*100) for line in prune_profile]
+	x = [str(round(len(line)/total_head*100)) for line in prune_profile]
 	y = [float(score) for score in bleu_scores]
 	return x, y
 
