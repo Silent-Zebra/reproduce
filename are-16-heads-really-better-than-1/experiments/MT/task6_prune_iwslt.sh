@@ -8,7 +8,7 @@ epochlist=(1 2 3 5 7 10 15 20 25 30 35 40)
 for i in ${epochlist[@]}
 do
     MODEL=iwslt14_de-en_8head_before_/checkpoint${i}.pt 
-    echo $MODEL
+    echo Epoch $i
     python fairseq/prune.py \
         $DATA_BIN \
         -s de \
