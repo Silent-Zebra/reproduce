@@ -13,6 +13,7 @@ def get_prune_accuracy_pair(filepath):
     f.close()
     return prune_accuracy_pair, total_head, base_acc
 
+
 filepath1 = "MNLIprunesummary.txt"
 filepath2 = "MNLI_prune_acc_summary.txt"
 
