@@ -1,0 +1,132 @@
+Epoch 1
+BLEU score: 	3.77
+BLEU score: 	3.77
+BLEU score: 	3.48
+BLEU score: 	3.20
+BLEU score: 	2.66
+BLEU score: 	2.36
+BLEU score: 	1.99
+BLEU score: 	1.69
+BLEU score: 	1.14
+BLEU score: 	0.87
+Epoch 2
+BLEU score: 	8.83
+BLEU score: 	8.49
+BLEU score: 	7.43
+BLEU score: 	6.80
+BLEU score: 	5.16
+BLEU score: 	4.32
+BLEU score: 	2.92
+BLEU score: 	2.52
+BLEU score: 	2.00
+BLEU score: 	1.20
+Epoch 3
+BLEU score: 	13.76
+BLEU score: 	13.66
+BLEU score: 	13.08
+BLEU score: 	12.48
+BLEU score: 	11.32
+BLEU score: 	8.65
+BLEU score: 	6.72
+BLEU score: 	4.04
+BLEU score: 	0.82
+BLEU score: 	0.16
+Epoch 5
+BLEU score: 	17.04
+BLEU score: 	16.47
+BLEU score: 	15.51
+BLEU score: 	14.78
+BLEU score: 	13.00
+BLEU score: 	9.29
+BLEU score: 	7.06
+BLEU score: 	3.45
+BLEU score: 	0.76
+BLEU score: 	0.23
+Epoch 7
+BLEU score: 	19.00
+BLEU score: 	18.84
+BLEU score: 	18.33
+BLEU score: 	17.78
+BLEU score: 	16.62
+BLEU score: 	14.60
+BLEU score: 	4.40
+BLEU score: 	1.79
+BLEU score: 	0.79
+BLEU score: 	0.16
+Epoch 10
+BLEU score: 	19.37
+BLEU score: 	18.34
+BLEU score: 	18.08
+BLEU score: 	16.38
+BLEU score: 	11.89
+BLEU score: 	11.23
+BLEU score: 	6.77
+BLEU score: 	3.34
+BLEU score: 	0.29
+BLEU score: 	0.13
+Epoch 15
+BLEU score: 	19.99
+BLEU score: 	19.39
+BLEU score: 	18.91
+BLEU score: 	17.89
+BLEU score: 	16.76
+BLEU score: 	15.55
+BLEU score: 	8.08
+BLEU score: 	3.32
+BLEU score: 	1.00
+BLEU score: 	0.24
+Epoch 20
+BLEU score: 	20.00
+BLEU score: 	18.96
+BLEU score: 	18.00
+BLEU score: 	15.90
+BLEU score: 	13.96
+BLEU score: 	13.45
+BLEU score: 	9.39
+BLEU score: 	5.52
+BLEU score: 	2.86
+BLEU score: 	0.40
+Epoch 25
+BLEU score: 	19.82
+BLEU score: 	18.84
+BLEU score: 	17.98
+BLEU score: 	16.91
+BLEU score: 	14.34
+BLEU score: 	12.13
+BLEU score: 	10.07
+BLEU score: 	6.01
+BLEU score: 	2.99
+BLEU score: 	0.53
+Epoch 30
+BLEU score: 	20.02
+BLEU score: 	19.36
+BLEU score: 	18.70
+BLEU score: 	16.90
+BLEU score: 	15.99
+BLEU score: 	11.37
+BLEU score: 	8.35
+BLEU score: 	5.42
+BLEU score: 	3.17
+BLEU score: 	0.42
+Epoch 35
+BLEU score: 	19.91
+BLEU score: 	19.45
+BLEU score: 	18.21
+BLEU score: 	16.96
+BLEU score: 	15.23
+BLEU score: 	13.53
+BLEU score: 	10.23
+BLEU score: 	6.41
+BLEU score: 	2.31
+BLEU score: 	0.30
+Epoch 40
+BLEU score: 	19.52
+BLEU score: 	18.72
+BLEU score: 	17.43
+BLEU score: 	16.94
+BLEU score: 	16.37
+BLEU score: 	13.56
+BLEU score: 	8.87
+BLEU score: 	6.02
+BLEU score: 	1.16
+BLEU score: 	0.22
