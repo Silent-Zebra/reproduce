@@ -138,13 +138,12 @@ def main(args):
     decoder_layers = trainer.args.decoder_layers
     encoder_heads = trainer.args.encoder_attention_heads
     decoder_heads = trainer.args.decoder_attention_heads
-    device = next(trainer.model.parameters()).device
+    # device = next(trainer.model.parameters()).device
 
     head_importance = {
-        "encoder_self": torch.zeros(encoder_layers, encoder_heads).to(device),
-        "encoder_decoder": torch.zeros(decoder_layers, decoder_heads).to(
-            device),
-        "decoder_self": torch.zeros(decoder_layers, decoder_heads).to(device),
+        "encoder_self": torch.zeros(encoder_layers, encoder_heads),
+        "encoder_decoder": torch.zeros(decoder_layers, decoder_heads),
+        "decoder_self": torch.zeros(decoder_layers, decoder_heads),
     }
 
     accuracies = np.loadtxt("iwslt_ablation_out_notext.txt")
