@@ -8,8 +8,8 @@ MODEL=iwslt14_de-en_8head_before_/checkpoint_last.pt
 MOSES_SCRIPTS="fairseq/examples/translation/mosesdecoder/scripts"
 OUT_DIR=output
 # tokenized en
-SRC_FILE=test.de
-REF_FILE=test.en
+SRC_FILE=${DATA_BIN}/test.de
+REF_FILE=${DATA_BIN}/test.en
 OUT_PREFIX="iwslt14_de-en"
 # EXTRA_OPTIONS=$3
 # Use the following instead for ablating all but one head in a layer
