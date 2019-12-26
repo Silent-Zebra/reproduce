@@ -37,7 +37,7 @@ do
     for layer in `seq 1 6`
     do
         echo -n "$layer"
-        for head in `seq 1 16`
+        for head in `seq 1 8`
         do
             mask_str="${part}:${layer}:${head}"
             cat $SRC_FILE | python fairseq/interactive.py \
