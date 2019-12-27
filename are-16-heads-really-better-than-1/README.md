@@ -32,7 +32,7 @@ mv glue_data ..
 cd ..
 ```
 
-Extra perparation of GLUE data: MNLI-Mistmatch
+Extra perparation of GLUE data for the MNLI-Mismatched dataset used in section 3.4:
 ```bash
 cd glue_data
 mkdir mnli-mis
@@ -78,6 +78,10 @@ By default, we use English-to-French test sets for WMT and German-to-English for
 ### 3.3 - Ablating All But One Head
 
 The procedure is the same as above, but you need to modify the sh files (replace the lines as described in the files).
+
+### 3.4 - Correlation Among Heads
+
+Use task3-4_correlation.py, applied to the output of 3.2.
 
 ### 4 - Systematic Pruning Experiments
 
