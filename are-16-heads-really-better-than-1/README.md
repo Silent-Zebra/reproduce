@@ -13,6 +13,7 @@ git clone https://github.com/pmichel31415/fairseq
 git clone https://github.com/pmichel31415/pytorch-pretrained-BERT
 cd pytorch-pretrained-BERT
 git checkout paul
+python setup.py install
 cd ..
 ```
 
@@ -20,12 +21,36 @@ You will also need `sacrebleu` to evaluate BLEU score  (`pip install sacrebleu`)
 
 ## Ablation experiments
 
+### get GLUE data
+```bash
+git clone https://github.com/nyu-mll/GLUE-baselines.git
+cd GLUE-baselines
+python download_glue_data.py
+mv glue_data ..
+cd ..
+```
+
+Extra perparation of GLUE data: MNLI-Mistmatch
+```bash
+cd glue_data
+mkdir mnli-mis
+cd MNLI
+mv dev_mismatched.tsv ../mnli-mis
+mv test_mismatched.tsv ../mnli-mis
+mv train.tsv ../mnli-mis
+```
+
 ### BERT
 
 Running
 
 ```bash
 bash experiments/BERT/heads_ablation.sh MNLI
+```
+
+To perform head ablation on MNLI mismatched
+```
+bash experiments/BERT/heads_ablation.sh mnli-mis
 ```
 
 Will fine-tune a pretrained BERT on MNLI (stored in `./models/MNLI`) and perform the individual head ablation experiment from Section 3.1 in the paper alternatively you can run the experiment with `CoLA`, `MRCP` or `SST-2` as a task in place of `MNLI`.
@@ -59,3 +84,24 @@ bash experiments/MT/prune_wmt.sh $BPE_SEGMENTED_SRC_FILE $DETOKENIZED_REF_FILE
 ```
 
 You might want to change the paths in the experiment files to point to the binarized fairseq dataset on whic you want to estimate importance scores.
+
+## Graphing
+
+Modify the graphing script accordingly to filepath you saved the results
+
+Graph in Section 3.2
+filenames are created by task_model_description, if model part of the filename is missing, then it implies that the script can be used for both BERT and IWSLT/WMT
+
+```bash
+python task3-2_bert_histogram.py
+python task3-2_wmt_histogram.py
+```
+output from task3-2_bert_histogram.py also contains index of the values that has statistical significance. The index//12 is the row and index%12 is the column 
+
+Graph in Section 3.3
+```bash
+python task3-3_bert_all-but-one.py
+```
+Table for task 4 can be done in excel with given statistical significance file and head ablation all but one file
+
+
