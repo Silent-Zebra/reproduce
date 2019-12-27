@@ -1,0 +1,108 @@
+Namespace(adaptive_softmax_cutoff=None, adaptive_softmax_dropout=0, arch='transformer_iwslt_de_en_8head_before', attention_dropout=0.1, beam=5, bucket_cap_mb=150, clip_norm=25, cpu=False, criterion='cross_entropy', data=['data-bin/iwslt14.tokenized.de-en'], ddp_backend='c10d', decoder_attention_heads=8, decoder_embed_dim=512, decoder_embed_path=None, decoder_ffn_embed_dim=1024, decoder_input_dim=512, decoder_layers=6, decoder_learned_pos=False, decoder_normalize_before=True, decoder_output_dim=512, decoder_self_only=False, device_id=0, distributed_backend='nccl', distributed_init_method=None, distributed_port=-1, distributed_rank=0, distributed_world_size=1, diverse_beam_groups=1, diverse_beam_strength=0.5, dropout=0.1, encoder_attention_heads=8, encoder_decoder_only=False, encoder_embed_dim=512, encoder_embed_path=None, encoder_ffn_embed_dim=1024, encoder_layers=6, encoder_learned_pos=False, encoder_normalize_before=True, encoder_self_only=False, fix_batches_to_gpus=False, fp16=False, fp16_init_scale=128, fp16_scale_window=None, keep_interval_updates=-1, left_pad_source='True', left_pad_target='False', lenpen=1.0, log_format=None, log_interval=1000, lr=[0.25], lr_scheduler='reduce_lr_on_plateau', lr_shrink=0.1, max_epoch=0, max_len_a=0, max_len_b=200, max_sentences=64, max_sentences_valid=64, max_source_positions=1024, max_target_positions=1024, max_tokens=6000, max_update=0, min_len=1, min_loss_scale=0.0001, min_lr=1e-05, model_overrides='{}', momentum=0.99, n_pruning_steps=0, nbest=1, no_beamable_mm=False, no_early_stop=False, no_epoch_checkpoints=False, no_progress_bar=True, no_save=False, no_token_positional_embeddings=False, normalize_by_layer=True, one_head=False, one_minus=False, only_importance=False, optimizer='nag', optimizer_overrides='{}', path=None, prefix_size=0, print_alignment=False, quiet=False, raw_text=True, relu_dropout=0.0, remove_bpe='@@ ', replace_unk=None, reset_lr_scheduler=False, reset_optimizer=True, restore_file='iwslt14_de-en_8head_before_/checkpoint_last.pt', sampling=False, sampling_temperature=1, sampling_topk=-1, save_dir='checkpoints', save_interval=1, save_interval_updates=0, score_reference=False, seed=1, sentence_avg=False, share_all_embeddings=False, share_decoder_input_output_embed=False, skip_invalid_size_inputs_valid_test=False, source_lang='de', target_lang='en', task='translation', train_subset='train', transformer_mask_all_but_one_head=False, transformer_mask_heads=[], transformer_mask_rescale=False, unkpen=0, unnormalized=False, update_freq=[1], upsample_primary=1, valid_subset='valid', validate_interval=1, weight_decay=0.0)
+| [de] dictionary: 8848 types
+| [en] dictionary: 6632 types
+| data-bin/iwslt14.tokenized.de-en train 198118 examples
+| data-bin/iwslt14.tokenized.de-en valid 7283 examples
+| model transformer_iwslt_de_en_8head_before, criterion CrossEntropyCriterion,
+| num. model params: 42866688
+| training on 1 GPUs
+| max tokens per GPU = 6000 and max sentences per GPU = 64
+| Optimizer FairseqNAG
+DEBUGGING
+SAVEDIR
+checkpoints
+iwslt14_de-en_8head_before_/checkpoint_last.pt
+/scratch/ssd001/home/zhaostep/reproduce/are-16-heads-really-better-than-1/iwslt14_de-en_8head_before_/checkpoint_last.pt
+/scratch/ssd001/home/zhaostep/reproduce/are-16-heads-really-better-than-1/iwslt14_de-en_8head_before_/checkpoint_last.pt
+True
+True
+Namespace(adaptive_softmax_cutoff=None, adaptive_softmax_dropout=0, arch='transformer_iwslt_de_en_8head_before', attention_dropout=0.1, beam=5, bucket_cap_mb=150, clip_norm=25, cpu=False, criterion='cross_entropy', data=['data-bin/iwslt14.tokenized.de-en'], ddp_backend='c10d', decoder_attention_heads=8, decoder_embed_dim=512, decoder_embed_path=None, decoder_ffn_embed_dim=1024, decoder_input_dim=512, decoder_layers=6, decoder_learned_pos=False, decoder_normalize_before=True, decoder_output_dim=512, decoder_self_only=False, device_id=0, distributed_backend='nccl', distributed_init_method=None, distributed_port=-1, distributed_rank=0, distributed_world_size=1, diverse_beam_groups=1, diverse_beam_strength=0.5, dropout=0.1, encoder_attention_heads=8, encoder_decoder_only=False, encoder_embed_dim=512, encoder_embed_path=None, encoder_ffn_embed_dim=1024, encoder_layers=6, encoder_learned_pos=False, encoder_normalize_before=True, encoder_self_only=False, fix_batches_to_gpus=False, fp16=False, fp16_init_scale=128, fp16_scale_window=None, keep_interval_updates=-1, left_pad_source=True, left_pad_target=False, lenpen=1.0, log_format=None, log_interval=1000, lr=[0.25], lr_scheduler='reduce_lr_on_plateau', lr_shrink=0.1, max_epoch=0, max_len_a=0, max_len_b=200, max_sentences=64, max_sentences_valid=64, max_source_positions=1024, max_target_positions=1024, max_tokens=6000, max_update=0, min_len=1, min_loss_scale=0.0001, min_lr=1e-05, model_overrides='{}', momentum=0.99, n_pruning_steps=0, nbest=1, no_beamable_mm=False, no_early_stop=False, no_epoch_checkpoints=False, no_progress_bar=True, no_save=False, no_token_positional_embeddings=False, normalize_by_layer=True, one_head=False, one_minus=False, only_importance=False, optimizer='nag', optimizer_overrides='{}', path=None, prefix_size=0, print_alignment=False, quiet=False, raw_text=True, relu_dropout=0.0, remove_bpe='@@ ', replace_unk=None, reset_lr_scheduler=False, reset_optimizer=True, restore_file='iwslt14_de-en_8head_before_/checkpoint_last.pt', sampling=False, sampling_temperature=1, sampling_topk=-1, save_dir='checkpoints', save_interval=1, save_interval_updates=0, score_reference=False, seed=1, sentence_avg=False, share_all_embeddings=False, share_decoder_input_output_embed=False, skip_invalid_size_inputs_valid_test=False, source_lang='de', target_lang='en', task='translation', train_subset='train', transformer_mask_all_but_one_head=False, transformer_mask_heads=[], transformer_mask_rescale=False, unkpen=0, unnormalized=False, update_freq=[1], upsample_primary=1, valid_subset='valid', validate_interval=1, weight_decay=0.0)
+<fairseq.trainer.Trainer object at 0x7fcbb01d2250>
+<fairseq.data.iterators.EpochBatchIterator object at 0x7fcbb0196450>
+SAVEDIR
+checkpoints
+iwslt14_de-en_8head_before_/checkpoint_last.pt
+/scratch/ssd001/home/zhaostep/reproduce/are-16-heads-really-better-than-1/iwslt14_de-en_8head_before_/checkpoint_last.pt
+/scratch/ssd001/home/zhaostep/reproduce/are-16-heads-really-better-than-1/iwslt14_de-en_8head_before_/checkpoint_last.pt
+True
+| epoch 001:   1000 / 3096 wps=0, wpb=0, bsz=0, oom=0, wall=78, train_wall=10683, loss=12.5964, ntokens=263.957, nsentences=64, sample_size=263.957
+| epoch 001:   2000 / 3096 wps=0, wpb=0, bsz=0, oom=0, wall=155, train_wall=10683, loss=12.5698, ntokens=267.491, nsentences=64, sample_size=267.491
+| epoch 001:   3000 / 3096 wps=0, wpb=0, bsz=0, oom=0, wall=232, train_wall=10683, loss=12.5786, ntokens=269.42, nsentences=63.9913, sample_size=269.42
+| epoch 001 | wps 0 | wpb 0 | bsz 0 | oom 0 | wall 240 | train_wall 10683 | loss 12.5826 | ntokens 269.325 | nsentences 63.9916 | sample_size 269.325
+| done estimating head importance in 239.8 seconds
+Head importances
+Encoder self attention
+0.17720	0.43567	0.28710	0.33562	0.30686	0.52908	0.33757	0.30934
+0.24418	0.51993	0.27794	0.24590	0.25080	0.44169	0.29133	0.43528
+0.48377	0.33146	0.35301	0.34660	0.31144	0.44305	0.27037	0.21206
+0.33905	0.23870	0.22281	0.19792	0.29236	0.33676	0.67759	0.28504
+0.18375	0.22625	0.27194	0.87114	0.16003	0.11044	0.16105	0.13589
+0.25676	0.48643	0.34152	0.39532	0.18793	0.41949	0.24383	0.39218
+Encoder decoder attention
+0.17433	0.22640	0.17023	0.75129	0.16688	0.26368	0.24686	0.40820
+0.34821	0.49839	0.25881	0.26798	0.16767	0.30621	0.11536	0.59697
+0.37647	0.29372	0.50957	0.32382	0.43973	0.10054	0.42277	0.15897
+0.47536	0.34902	0.27812	0.09037	0.37072	0.59908	0.20998	0.16210
+0.42287	0.61999	0.18681	0.46195	0.26372	0.14720	0.27443	0.14823
+0.26978	0.17881	0.63766	0.21420	0.45134	0.33866	0.30267	0.18094
+Decoder self attention
+0.20658	0.26152	0.18762	0.36401	0.54303	0.24922	0.30853	0.51870
+0.49612	0.26725	0.54592	0.28827	0.30731	0.20454	0.35803	0.19197
+0.28390	0.40127	0.26100	0.51204	0.39390	0.24306	0.24854	0.38995
+0.18180	0.30124	0.19188	0.80938	0.14246	0.25169	0.14964	0.27975
+0.50343	0.24154	0.20914	0.22917	0.46006	0.29876	0.29796	0.44974
+0.25606	0.21275	0.22794	0.25156	0.27740	0.77792	0.11330	0.28104
+Heads sorted by importance:
+A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2 A:1:6 A:5:5 D:2:2 A:2:4 A:6:1 E:3:7 E:5:3 A:5:7 D:6:5 E:2:3 A:4:3 D:4:8 D:6:8 D:3:1 E:4:8 E:1:3 D:2:4 E:2:7 E:4:5 A:3:2 D:5:7 D:5:6 D:4:2 A:6:7 A:2:6 E:1:5 D:2:5 D:1:7 E:1:8 E:3:5 A:3:4 E:3:2 E:1:4 E:4:6 E:1:7 A:6:6 E:4:1 E:6:3 E:3:4 A:2:1 A:4:2 E:3:3 D:2:7 D:1:4 A:4:5 A:3:1 D:3:8 E:6:8 D:3:5 E:6:4 D:3:2 A:1:8 E:6:6 A:3:7 A:5:1 E:2:8 E:1:2 A:3:5 E:2:6 E:3:6 D:5:8 A:6:5 D:5:5 A:5:4 A:4:1 E:3:1 E:6:2 D:2:1 A:2:2 D:5:1 A:3:3 D:3:4 D:1:8 E:2:2 E:1:6 D:1:5 D:2:3 A:2:8 A:4:6 A:5:2 A:6:3 E:4:7 A:1:4 D:6:6 D:4:4 E:5:4
+Sorted head importance scores:
+0.09037 0.10054 0.11044 0.11330 0.11536 0.13589 0.14246 0.14720 0.14823 0.14964 0.15897 0.16003 0.16105 0.16210 0.16688 0.16767 0.17023 0.17433 0.17720 0.17881 0.18094 0.18180 0.18375 0.18681 0.18762 0.18793 0.19188 0.19197 0.19792 0.20454 0.20658 0.20914 0.20998 0.21206 0.21275 0.21420 0.22281 0.22625 0.22640 0.22794 0.22917 0.23870 0.24154 0.24306 0.24383 0.24418 0.24590 0.24686 0.24854 0.24922 0.25080 0.25156 0.25169 0.25606 0.25676 0.25881 0.26100 0.26152 0.26368 0.26372 0.26725 0.26798 0.26978 0.27037 0.27194 0.27443 0.27740 0.27794 0.27812 0.27975 0.28104 0.28390 0.28504 0.28710 0.28827 0.29133 0.29236 0.29372 0.29796 0.29876 0.30124 0.30267 0.30621 0.30686 0.30731 0.30853 0.30934 0.31144 0.32382 0.33146 0.33562 0.33676 0.33757 0.33866 0.33905 0.34152 0.34660 0.34821 0.34902 0.35301 0.35803 0.36401 0.37072 0.37647 0.38995 0.39218 0.39390 0.39532 0.40127 0.40820 0.41949 0.42277 0.42287 0.43528 0.43567 0.43973 0.44169 0.44305 0.44974 0.45134 0.46006 0.46195 0.47536 0.48377 0.48643 0.49612 0.49839 0.50343 0.50957 0.51204 0.51870 0.51993 0.52908 0.54303 0.54592 0.59697 0.59908 0.61999 0.63766 0.67759 0.75129 0.77792 0.80938 0.87114
+Evaluating following profile: 	
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	19.63
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	18.75
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	17.29
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	16.49
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	15.24
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2 A:1:6 A:5:5 D:2:2 A:2:4 A:6:1 E:3:7 E:5:3 A:5:7 D:6:5 E:2:3 A:4:3 D:4:8 D:6:8 D:3:1
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	12.14
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2 A:1:6 A:5:5 D:2:2 A:2:4 A:6:1 E:3:7 E:5:3 A:5:7 D:6:5 E:2:3 A:4:3 D:4:8 D:6:8 D:3:1 E:4:8 E:1:3 D:2:4 E:2:7 E:4:5 A:3:2 D:5:7 D:5:6 D:4:2 A:6:7 A:2:6 E:1:5 D:2:5 D:1:7 E:1:8
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	11.77
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2 A:1:6 A:5:5 D:2:2 A:2:4 A:6:1 E:3:7 E:5:3 A:5:7 D:6:5 E:2:3 A:4:3 D:4:8 D:6:8 D:3:1 E:4:8 E:1:3 D:2:4 E:2:7 E:4:5 A:3:2 D:5:7 D:5:6 D:4:2 A:6:7 A:2:6 E:1:5 D:2:5 D:1:7 E:1:8 E:3:5 A:3:4 E:3:2 E:1:4 E:4:6 E:1:7 A:6:6 E:4:1 E:6:3 E:3:4 A:2:1 A:4:2 E:3:3 D:2:7
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	8.12
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2 A:1:6 A:5:5 D:2:2 A:2:4 A:6:1 E:3:7 E:5:3 A:5:7 D:6:5 E:2:3 A:4:3 D:4:8 D:6:8 D:3:1 E:4:8 E:1:3 D:2:4 E:2:7 E:4:5 A:3:2 D:5:7 D:5:6 D:4:2 A:6:7 A:2:6 E:1:5 D:2:5 D:1:7 E:1:8 E:3:5 A:3:4 E:3:2 E:1:4 E:4:6 E:1:7 A:6:6 E:4:1 E:6:3 E:3:4 A:2:1 A:4:2 E:3:3 D:2:7 D:1:4 A:4:5 A:3:1 D:3:8 E:6:8 D:3:5 E:6:4 D:3:2 A:1:8 E:6:6 A:3:7 A:5:1 E:2:8 E:1:2 A:3:5
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	2.48
+Evaluating following profile: 	A:4:4 A:3:6 E:5:6 D:6:7 A:2:7 E:5:8 D:4:5 A:5:6 A:5:8 D:4:7 A:3:8 E:5:5 E:5:7 A:4:8 A:1:5 A:2:5 A:1:3 A:1:1 E:1:1 A:6:2 A:6:8 D:4:1 E:5:1 A:5:3 D:1:3 E:6:5 D:4:3 D:2:8 E:4:4 D:2:6 D:1:1 D:5:3 A:4:7 E:3:8 D:6:2 A:6:4 E:4:3 E:5:2 A:1:2 D:6:3 D:5:4 E:4:2 D:5:2 D:3:6 E:6:7 E:2:1 E:2:4 A:1:7 D:3:7 D:1:6 E:2:5 D:6:4 D:4:6 D:6:1 E:6:1 A:2:3 D:3:3 D:1:2 A:1:6 A:5:5 D:2:2 A:2:4 A:6:1 E:3:7 E:5:3 A:5:7 D:6:5 E:2:3 A:4:3 D:4:8 D:6:8 D:3:1 E:4:8 E:1:3 D:2:4 E:2:7 E:4:5 A:3:2 D:5:7 D:5:6 D:4:2 A:6:7 A:2:6 E:1:5 D:2:5 D:1:7 E:1:8 E:3:5 A:3:4 E:3:2 E:1:4 E:4:6 E:1:7 A:6:6 E:4:1 E:6:3 E:3:4 A:2:1 A:4:2 E:3:3 D:2:7 D:1:4 A:4:5 A:3:1 D:3:8 E:6:8 D:3:5 E:6:4 D:3:2 A:1:8 E:6:6 A:3:7 A:5:1 E:2:8 E:1:2 A:3:5 E:2:6 E:3:6 D:5:8 A:6:5 D:5:5 A:5:4 A:4:1 E:3:1 E:6:2 D:2:1 A:2:2 D:5:1 A:3:3 D:3:4
+6632
+| Sentence buffer size: 100
+| Type the input sentence and press return:
+BLEU score: 	0.49
