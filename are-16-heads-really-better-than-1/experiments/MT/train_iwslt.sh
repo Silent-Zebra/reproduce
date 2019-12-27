@@ -3,7 +3,7 @@
 # Data/model folders
 TEXT_ROOT=iwslt14.tokenized.de-en
 DATA_BIN=data-bin/iwslt14.tokenized.de-en
-CKPT_ROOT=./projects/tir3/users/pmichel1/checkpoints 
+CKPT_ROOT=./checkpoints 
 
 PREPARE=${PREPARE:-1}
 TRAIN=${TRAIN:-1}

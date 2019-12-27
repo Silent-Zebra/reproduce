@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 DATA_BIN=data-bin/iwslt14.tokenized.de-en
 MODEL=$1
-#MODEL=iwslt_de-en_8head_before_
 ARCH=${2:-"transformer_iwslt_de_en_8head_before"}
 EXTRA_OPTIONS=$3
 

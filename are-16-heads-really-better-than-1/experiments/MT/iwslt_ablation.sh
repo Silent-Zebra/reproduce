@@ -11,7 +11,7 @@ OUT_DIR=output
 SRC_FILE=${DATA_BIN}/test.de
 REF_FILE=${DATA_BIN}/test.en
 OUT_PREFIX="iwslt14_de-en"
-# EXTRA_OPTIONS=$3
+EXTRA_OPTIONS=$3
 # Use the following instead for ablating all but one head in a layer
 # OUT_PREFIX=newstest2014_en-fr.allbut
 # EXTRA_OPTIONS="--transformer-mask-all-but-one-head"

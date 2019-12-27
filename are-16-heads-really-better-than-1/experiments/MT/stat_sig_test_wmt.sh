@@ -5,8 +5,6 @@
 CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 DATA_BIN=./wmt14_en-fr/wmt14.en-fr.joined-dict.newstest2014
 MODEL=./wmt14_en-fr/wmt14.en-fr.joined-dict.transformer/model.pt
-# DATA_BIN=/projects/tir3/users/pmichel1/data-bin/wmt14.en-fr.joined-dict.newstest2013
-# MODEL=/projects/tir3/users/pmichel1/checkpoints/wmt14.en-fr.joined-dict.transformer/model.pt
 MOSES_SCRIPTS="fairseq/examples/translation/mosesdecoder/scripts"
 OUT_DIR=output
 # tokenized en
