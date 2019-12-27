@@ -32,7 +32,7 @@ mv glue_data ..
 cd ..
 ```
 
-Extra perparation of GLUE data for the MNLI-Mismatched dataset used in section 3.4:
+Extra preparation of GLUE data for the MNLI-Mismatched dataset used in section 3.4:
 ```bash
 cd glue_data
 mkdir mnli-mis
@@ -95,7 +95,7 @@ bash experiments/BERT/heads_pruning.sh MNLI --normalize_pruning_by_layer
 
 This will reuse the BERT model fine-tuned if you have run the ablation experiment before (otherwise it'll just fine-tune it for you). The output of this is **very** verbose, but you can get the gist of the result by calling `grep "strategy\|results" -A1` on the output.
 
-To prune by a static evaluation of accuracy from ablating each head individually, we first ran the experiment in 3.2, and saved the output to a CSV file (automatically done when using our code). Then run:
+To prune by a static evaluation of accuracy from ablating each head individually, we first ran the experiment in 3.2, and saved the output to a CSV file (automatically done when using our code). Then we ran:
 
 ```bash
 bash experiments/BERT/heads_pruning.sh MNLI --prune_by_accuracy=True --prune_by_accuracy_file=32BERT_test.csv
@@ -111,7 +111,7 @@ bash experiments/MT/prune_iwslt.sh iwslt14_de-en_8head_before_/checkpoint_last.p
 
 changing iwslt14_de-en_8head_before_/checkpoint_last.pt to point to whichever model checkpoint you would like to load (checkpoints are generated from the preparation/training steps mentioned in 3.2 above, when setting up IWSLT).
 
-We used the experiments/MT/prune_iwslt_acc.sh script instead of the above to prune by accuracy. This assumes there exists a file called "iwslt_ablation_out_notext.txt". An example file with this format can be found in our results/ folder. fairseq/prune_acc.py can be modified to make this process more dynamic.
+We used the experiments/MT/prune_iwslt_acc.sh script instead of the above to prune by accuracy. This assumes there exists a file called "iwslt_ablation_out_notext.txt". An example file with this format can be found in our [results/](https://github.com/Silent-Zebra/reproduce/tree/master/are-16-heads-really-better-than-1/results) folder. fairseq/prune_acc.py can be modified to make this process more dynamic.
 
 ### 5 - When Are More Heads Important? The Case of Machine Translation
 
@@ -138,7 +138,7 @@ The script assumes that checkpoints are in the folder iwslt14_de-en_8head_before
 ## Graphing
 
 Filenames are created in the format of $task_$model_$description. If the model part of the filename is missing, then it means that the script can be used for both BERT and IWSLT/WMT.
-Modify the graphing script according to filepath where you saved the results, and the model used for the experiment if applicable
+Modify the graphing script according to filepath where you saved the results, and the model used for the experiment if applicable.
 
 
 ### Graphs in Section 3.2
@@ -159,7 +159,7 @@ Run
 python task3-3_bert_all-but-one.py
 ```
 
-Table for task 4 can be done in excel with the given statistical significance file and the head ablation for all but one file
+The table for task 4 can be made in Excel with the given statistical significance file and the head ablation for all but one file.
 
 ### Graph in Section 3.4
 
@@ -168,7 +168,7 @@ Run
 ```bash
 python task3-4_correlation.py
 ```
-This script can produce graphs for both BERT and WMT/IWSLT by changing model variable in the script.
+This script can produce graphs for both BERT and WMT/IWSLT; change the model variable in the script accordingly.
 
 ### Graph in Section 4
 
