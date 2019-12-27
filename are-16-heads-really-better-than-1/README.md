@@ -137,7 +137,7 @@ The script assumes that checkpoints are in the folder iwslt14_de-en_8head_before
 
 ## Graphing
 
-Filenames are created in the format of $task_$model_$description. If the model part of the filename is missing, then it means that the script can be used for both BERT and IWSLT/WMT
+Filenames are created in the format of $task_$model_$description. If the model part of the filename is missing, then it means that the script can be used for both BERT and IWSLT/WMT.
 Modify the graphing script according to filepath where you saved the results, and the model used for the experiment if applicable
 
 
