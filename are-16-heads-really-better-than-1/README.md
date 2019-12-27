@@ -143,7 +143,6 @@ Modify the graphing script according to filepath where you saved the results, an
 
 ### Graphs in Section 3.2
 
-
 Run
 
 ```bash
@@ -162,7 +161,7 @@ python task3-3_bert_all-but-one.py
 
 Table for task 4 can be done in excel with the given statistical significance file and the head ablation for all but one file
 
-###Graph in Section 3.4
+### Graph in Section 3.4
 
 Run
 
@@ -171,7 +170,7 @@ python task3-4_correlation.py
 ```
 This script can produce graphs for both BERT and WMT/IWSLT by changing model variable in the script.
 
-###Graph in Section 4
+### Graph in Section 4
 
 Run
 
@@ -179,7 +178,7 @@ Run
 python task4_generate_trend.py
 ```
 
-###Graph in Section 5
+### Graph in Section 5
 
 Run
 
@@ -187,7 +186,7 @@ Run
 python task5_iwslt_separate-prune.py
 ```
 
-###Graph in Section 6
+### Graph in Section 6
 
 Run
 
