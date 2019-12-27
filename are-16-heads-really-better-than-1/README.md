@@ -1,48 +1,71 @@
-# Are Sixteen Heads Really Better than One?
+# Reproducing "Are Sixteen Heads Really Better than One?"
 
-This repository contains code to reproduce the experiments in our paper [Are Sixteen Heads Really Better than One?](https://arxiv.org/abs/1905.10650).
+This repository contains the code we used to reproduce the results of [Michel et al., 2019, "Are Sixteen Heads Really Better than One?"](https://arxiv.org/abs/1905.10650). We used the [authors' original repository](https://github.com/pmichel31415/are-16-heads-really-better-than-1) as a starting point, and made modifications and extensions to the code.
 
-## Prerequisite
+## Prerequisites
 
-First, you will need python >=3.6 with `pytorch>=1.0`. Then, clone our forks of `fairseq` (for MT experiments) and `pytorch-pretrained-BERT` (for BERT):
+You will need python >=3.6 with `pytorch>=1.0`. We have already included in this repository modifications of the authors' clones of `fairseq` (for MT experiments) and `pytorch-pretrained-BERT` (for BERT).
 
-```bash
-# Fairseq
-git clone https://github.com/pmichel31415/fairseq
-# Pytorch pretrained BERT
-git clone https://github.com/pmichel31415/pytorch-pretrained-BERT
-cd pytorch-pretrained-BERT
-git checkout paul
-cd ..
-```
+You will need `sacrebleu` to evaluate BLEU score  (`pip install sacrebleu`).
 
-You will also need `sacrebleu` to evaluate BLEU score  (`pip install sacrebleu`).
+## Experiments
 
-## Ablation experiments
+We organize documentation below based on what we used for each section of the paper. All commands we run for experiments start from the base folder [are-16-heads-really-better-than-1](https://github.com/Silent-Zebra/reproduce/tree/master/are-16-heads-really-better-than-1/)
 
-### BERT
+### 3.2 - Ablating One Head
 
-Running
+#### BERT
+
+For BERT, run 
 
 ```bash
 bash experiments/BERT/heads_ablation.sh MNLI
 ```
 
-Will fine-tune a pretrained BERT on MNLI (stored in `./models/MNLI`) and perform the individual head ablation experiment from Section 3.1 in the paper alternatively you can run the experiment with `CoLA`, `MRCP` or `SST-2` as a task in place of `MNLI`.
+to fine-tune a pretrained BERT on MNLI (stored in `./models/MNLI`) and perform the individual head ablation experiment. The experiment can also be run with `CoLA` or `SST-2` as tasks in place of `MNLI`. These datasets can be obtained from the [GLUE Baselines repository](https://github.com/nyu-mll/GLUE-baselines) which we have already included in this repository as well. Follow the instructions in the GLUE-baselines folder to download the data.
 
-### MT
+Statistical significance testing is included in the task3-2_bert_histogram.py file.
 
-You can obtain the pretrained WMT model from [this link from the fairseq repo](wget https://s3.amazonaws.com/fairseq-py/models/wmt14.en-fr.joined-dict.transformer.tar.bz2). Use the [Moses tokenizer](https://github.com/moses-smt/mosesdecoder) and [subword-nmt](https://github.com/rsennrich/subword-nmt) in conjunction to the BPE codes provided with the pretrained model to prepair any input file you want. Then run:
+#### WMT and IWSLT
+
+We got the models and DATA_BIN files from [here](https://github.com/pytorch/fairseq/tree/master/examples/translation).
+
+We obtained tokenized data from [here](https://github.com/google/seq2seq/blob/master/docs/nmt.md).
+
+We then modified the script taken from [here](https://github.com/google/seq2seq/blob/master/bin/data/wmt16_en_de.sh).
+
+To set up IWSLT and WMT, follow the instructions [here](https://github.com/Silent-Zebra/reproduce/tree/master/are-16-heads-really-better-than-1/fairseq/examples/translation)
+
+For WMT, run
 
 ```bash
-bash experiments/MT/wmt_ablation.sh $BPE_SEGMENTED_SRC_FILE $DETOKENIZED_REF_FILE
+bash experiments/MT/wmt_ablation.sh
 ```
 
-## Systematic Pruning Experiments
+For statistical significance testing, run
 
-### BERT
+```bash
+bash experiments/MT/stat_sig_test_wmt.sh
+```
 
-To iteratively prune 10% heads in order of increasing importance run
+For IWSLT, run
+
+```bash
+bash experiments/MT/iwslt_ablation.sh
+```
+
+By default, we use English-to-French test sets for WMT and German-to-English for IWSLT. You can modify the file paths in the sh files mentioned above to point to the desired datasets.
+
+
+### 3.3 - Ablating All But One Head
+
+The procedure is the same as above, but you need to modify the sh files (replace the lines as described in the files).
+
+### 4 - Systematic Pruning Experiments
+
+#### BERT
+
+To iteratively prune 5% of heads in order of increasing importance run
 
 ```bash
 bash experiments/BERT/heads_pruning.sh MNLI --normalize_pruning_by_layer
@@ -50,12 +73,42 @@ bash experiments/BERT/heads_pruning.sh MNLI --normalize_pruning_by_layer
 
 This will reuse the BERT model fine-tuned if you have run the ablation experiment before (otherwise it'll just fine-tune it for you). The output of this is **very** verbose, but you can get the gist of the result by calling `grep "strategy\|results" -A1` on the output.
 
-### WMT
-
-Similarly, just run:
+To prune by a static evaluation of accuracy from ablating each head individually, we first ran the experiment in 3.2, and saved the output to a CSV file (automatically done when using our code). Then run:
 
 ```bash
-bash experiments/MT/prune_wmt.sh $BPE_SEGMENTED_SRC_FILE $DETOKENIZED_REF_FILE
+bash experiments/BERT/heads_pruning.sh MNLI --prune_by_accuracy=True --prune_by_accuracy_file=32BERT_test.csv
 ```
 
-You might want to change the paths in the experiment files to point to the binarized fairseq dataset on whic you want to estimate importance scores.
+#### IWSLT
+
+To iteratively prune 10% of heads in order of increasing importance run:
+
+```bash
+bash experiments/MT/prune_iwslt.sh iwslt14_de-en_8head_before_/checkpoint_last.pt 
+```
+
+changing iwslt14_de-en_8head_before_/checkpoint_last.pt to point to whichever model checkpoint you would like to load (checkpoints are generated from the preparation/training steps mentioned in 3.2 above, when setting up IWSLT).
+
+We used the experiments/MT/prune_iwslt_acc.sh script instead of the above to prune by accuracy. This assumes there exists a file called "iwslt_ablation_out_notext.txt". An example file with this format can be found in our results/ folder. fairseq/prune_acc.py can be modified to make this process more dynamic.
+
+### 5 - When Are More Heads Important? The Case of Machine Translation
+
+We ran the following commands:
+
+```bash
+bash experiments/MT/prune_iwslt.sh iwslt14_de-en_8head_before_/checkpoint_last.pt transformer_iwslt_de_en_8head_before --encoder-self-only 
+bash experiments/MT/prune_iwslt.sh iwslt14_de-en_8head_before_/checkpoint_last.pt transformer_iwslt_de_en_8head_before --encoder-decoder-only 
+bash experiments/MT/prune_iwslt.sh iwslt14_de-en_8head_before_/checkpoint_last.pt transformer_iwslt_de_en_8head_before --decoder-self-only 
+```
+
+where again, the argument "iwslt14_de-en_8head_before_/checkpoint_last.pt" points to the file location of the model checkpoint.
+
+### 6 - Dynamics of Head Importance during Training
+
+Run
+
+```bash
+bash experiments/MT/task6_prune_iwslt.sh 
+```
+
+The script assumes that checkpoints are in the folder iwslt14_de-en_8head_before_. This can be changed in the script.
