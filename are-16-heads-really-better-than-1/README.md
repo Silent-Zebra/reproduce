@@ -137,11 +137,12 @@ The script assumes that checkpoints are in the folder iwslt14_de-en_8head_before
 
 ## Graphing
 
-Modify the graphing script according to filepath where you saved the results
+Filenames are created in the format of $task_$model_$description. If the model part of the filename is missing, then it means that the script can be used for both BERT and IWSLT/WMT
+Modify the graphing script according to filepath where you saved the results, and the model used for the experiment if applicable
+
 
 ### Graphs in Section 3.2
 
-Filenames are created by task_model_description. If the model part of the filename is missing, then it means that the script can be used for both BERT and IWSLT/WMT
 
 Run
 
@@ -160,3 +161,36 @@ python task3-3_bert_all-but-one.py
 ```
 
 Table for task 4 can be done in excel with the given statistical significance file and the head ablation for all but one file
+
+###Graph in Section 3.4
+
+Run
+
+```bash
+python task3-4_correlation.py
+```
+This script can produce graphs for both BERT and WMT/IWSLT by changing model variable in the script.
+
+###Graph in Section 4
+
+Run
+
+```bash
+python task4_generate_trend.py
+```
+
+###Graph in Section 5
+
+Run
+
+```bash
+python task5_iwslt_separate-prune.py
+```
+
+###Graph in Section 6
+
+Run
+
+```bash
+python task6_iwslt_training-dynamic.py
+```
