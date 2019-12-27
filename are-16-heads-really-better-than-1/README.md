@@ -22,7 +22,25 @@ For BERT, run
 bash experiments/BERT/heads_ablation.sh MNLI
 ```
 
-to fine-tune a pretrained BERT on MNLI (stored in `./models/MNLI`) and perform the individual head ablation experiment. The experiment can also be run with `CoLA` or `SST-2` as tasks in place of `MNLI`. These datasets can be obtained from the [GLUE Baselines repository](https://github.com/nyu-mll/GLUE-baselines) which we have already included in this repository as well. Follow the instructions in the GLUE-baselines folder to download the data.
+to fine-tune a pretrained BERT on MNLI (stored in `./models/MNLI`) and perform the individual head ablation experiment. The experiment can also be run with `CoLA` or `SST-2` as tasks in place of `MNLI`. These datasets can be obtained from the [GLUE Baselines repository](https://github.com/nyu-mll/GLUE-baselines) which we have already included in this repository as well.
+
+To get GLUE data:
+```bash
+cd GLUE-baselines
+python download_glue_data.py
+mv glue_data ..
+cd ..
+```
+
+Extra perparation of GLUE data: MNLI-Mistmatch
+```bash
+cd glue_data
+mkdir mnli-mis
+cd MNLI
+mv dev_mismatched.tsv ../mnli-mis
+mv test_mismatched.tsv ../mnli-mis
+mv train.tsv ../mnli-mis
+```
 
 Statistical significance testing is included in the task3-2_bert_histogram.py file.
 
@@ -110,5 +128,31 @@ Run
 ```bash
 bash experiments/MT/task6_prune_iwslt.sh 
 ```
-
 The script assumes that checkpoints are in the folder iwslt14_de-en_8head_before_. This can be changed in the script.
+
+
+## Graphing
+
+Modify the graphing script according to filepath where you saved the results
+
+### Graphs in Section 3.2
+
+Filenames are created by task_model_description. If the model part of the filename is missing, then it means that the script can be used for both BERT and IWSLT/WMT
+
+Run
+
+```bash
+python task3-2_bert_histogram.py
+python task3-2_wmt_histogram.py
+```
+The output from task3-2_bert_histogram.py also contains the index of the values that have statistical significance. The index//12 is the row and index%12 is the column 
+
+### Graphs in Section 3.3
+
+Run
+
+```bash
+python task3-3_bert_all-but-one.py
+```
+
+Table for task 4 can be done in excel with the given statistical significance file and the head ablation for all but one file
